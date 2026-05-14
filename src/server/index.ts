@@ -74,8 +74,7 @@ export class MockShopifyAdminServer {
       const frameSrc = this.config.proxy ? `'self'` : `'self' ${this.config.appUrl}`;
       res.setHeader('Content-Security-Policy',
         `frame-src ${frameSrc}; ` +
-        `frame-ancestors 'self' localhost:*; ` +
-        `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.shopify.com;`
+        `frame-ancestors 'self' localhost:*;`
       );
 
       // res.send(this.getAdminHTML(host as string, shop as string));
