@@ -75,7 +75,7 @@ export class MockShopifyAdminServer {
       res.setHeader('Content-Security-Policy',
         `frame-src ${frameSrc}; ` +
         `frame-ancestors 'self' localhost:*; ` +
-        `script-src 'self' 'unsafe-inline' 'unsafe-eval';`
+        `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.shopify.com;`
       );
 
       // res.send(this.getAdminHTML(host as string, shop as string));
