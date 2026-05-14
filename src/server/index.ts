@@ -74,8 +74,7 @@ export class MockShopifyAdminServer {
       const frameSrc = this.config.proxy ? `'self'` : `'self' ${this.config.appUrl}`;
       res.setHeader('Content-Security-Policy',
         `frame-src ${frameSrc}; ` +
-        `frame-ancestors 'self' localhost:*; ` +
-        `script-src 'self' 'unsafe-inline' 'unsafe-eval';`
+        `frame-ancestors 'self' localhost:*;`
       );
 
       // res.send(this.getAdminHTML(host as string, shop as string));
@@ -224,6 +223,11 @@ export class MockShopifyAdminServer {
         },
       }));
     }
+
+    // Serve SPA for all /admin/apps/* paths so sub-path routing works
+    this.app.get('/admin/apps/*', (req: Request, res: Response) => {
+      res.sendFile(path.join(__dirname, '../../admin-frame/dist/index.html'));
+    });
 
     // Catch-all for undefined routes
     this.app.use('*', (req: Request, res: Response) => {

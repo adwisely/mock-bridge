@@ -188,6 +188,10 @@ class MockShopifyAdminServer {
                 },
             }));
         }
+        // Serve SPA for all /admin/apps/* paths so sub-path routing works
+        this.app.get('/admin/apps/*', (req, res) => {
+            res.sendFile(path_1.default.join(__dirname, '../../admin-frame/dist/index.html'));
+        });
         // Catch-all for undefined routes
         this.app.use('*', (req, res) => {
             if (this.config.debug) {

@@ -134,7 +134,11 @@ export function useMockBridge() {
 
     const origin = config.proxy ? '/__proxy' : config.appUrl;
 
-    return `${origin}${basePath}?host=${host}&shop=${config.shop}&embedded=1&id_token=${idToken}`;
+    // Extract /sub/path from /admin/apps/:clientId/sub/path
+    const match = window.location.pathname.match(/^\/admin\/apps\/[^/]+(\/.*)?$/);
+    const dynamicPath = match?.[1] ?? '';
+
+    return `${origin}${basePath}${dynamicPath}?host=${host}&shop=${config.shop}&embedded=1&id_token=${idToken}`;
   })();
 
   return {
